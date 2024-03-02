@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Regiones del Perú</title>
+    <!-- Enlace a la librería de Leaflet.js -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+    <h1>CHECA TU PLAN VERSION PEU</h1>
+    <div id="map"></div>
+
+    <!-- Enlace a la librería de Leaflet.js -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([-9.189967, -75.015152], 6); // Coordenadas para centrar el mapa en Perú
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Array de regiones del Perú, cada una con sus coordenadas y texto adicional
+        var regiones = [
+            { nombre: 'Amazonas', coordenadas: [-5.1703, -78.4803], info: 'Amazonas es una región del norte del Perú, conocida por su selva y riqueza natural.', enlace: '/amazonas' },
+            { nombre: 'Áncash', coordenadas: [-9.4072, -77.6536], info: 'Áncash es una región de la costa central del Perú, hogar de la Cordillera Blanca y la ciudad de Huaraz.', enlace: '/ancash' },
+            { nombre: 'Apurímac', coordenadas: [-14.0298, -72.9763], info: 'Apurímac es una región del sur del Perú, conocida por su belleza natural y sitios arqueológicos.', enlace: '/apurimac' },
+            // Agrega más regiones aquí...
+        ];
+
+        // Agregar marcadores para cada región
+        regiones.forEach(function(region) {
+            var marker = L.marker(region.coordenadas).addTo(map);
+            var popupContent = '<b>' + region.nombre + '</b><br>' + region.info;
+            popupContent += '<br><a href="' + region.enlace + '">Ver más información</a>';
+            marker.bindPopup(popupContent);
+        });
+    </script>
+</body>
+</html>
